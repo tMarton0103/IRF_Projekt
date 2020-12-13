@@ -16,18 +16,31 @@ namespace Szerencsejatek
 
         List<Table> Szelvenyek;
 
+        Random rnd = new Random();
+
 
         public Form1()
         {
             InitializeComponent();
             LoadData();
 
+            
 
         }
 
         private void LoadData()
         {
             Szelvenyek = context.Table.ToList();
+        }
+
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = rnd.Next(1, 90).ToString();
+            textBox2.Text = rnd.Next(1, 90).ToString();
+            textBox3.Text = rnd.Next(1, 90).ToString();
+            textBox4.Text = rnd.Next(1, 90).ToString();
+            textBox5.Text = rnd.Next(1, 90).ToString();
         }
     }
 }
