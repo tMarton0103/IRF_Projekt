@@ -12,9 +12,22 @@ namespace Szerencsejatek
 {
     public partial class Form1 : Form
     {
+        Database1Entities context = new Database1Entities();
+
+        List<Table> Szelvenyek;
+
+
         public Form1()
         {
             InitializeComponent();
+            LoadData();
+
+
+        }
+
+        private void LoadData()
+        {
+            Szelvenyek = context.Table.ToList();
         }
     }
 }
