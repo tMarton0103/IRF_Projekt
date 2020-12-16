@@ -73,11 +73,11 @@ namespace Szerencsejatek
             string[] fejlec = new string[]
             {
                 "Szelveny_Id",
-                "t01",
-                "t02",
-                "t03",
-                "t04",
-                "t05"
+                "1. szám",
+                "2. szám",
+                "3. szám",
+                "4. szám",
+                "5. szám"
             };
 
             for (int i = 1; i < fejlec.Length; i++)
