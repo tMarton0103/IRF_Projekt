@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Szerencsejatek
 {
-    public class Szelvenyek
+    public class Szelvenyekc
     {
         public int Szelveny_Id { get; set; }
         public int t01 { get; set; }

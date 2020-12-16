@@ -25,6 +25,6 @@ namespace Szerencsejatek
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Table> Table { get; set; }
+        public virtual DbSet<Table> Szelvenyek { get; set; }
     }
 }

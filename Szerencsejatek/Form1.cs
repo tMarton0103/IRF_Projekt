@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Reflection;
 
 namespace Szerencsejatek
 {
@@ -16,22 +18,28 @@ namespace Szerencsejatek
 
         List<Table> Szelvenyek;
 
+        Excel.Application xlApp;
+        Excel.Workbook xlWB;
+        Excel.Worksheet xlSheet;
+
+
         Random rnd = new Random();
+
+
 
 
         public Form1()
         {
             InitializeComponent();
-            LoadData();
+
+            Szelvenyek = context.Szelvenyek.ToList();
+            dataGridView1.DataSource = Szelvenyek;
 
             
 
         }
 
-        private void LoadData()
-        {
-            Szelvenyek = context.Table.ToList();
-        }
+       
 
 
         private void btnStart_Click(object sender, EventArgs e)
