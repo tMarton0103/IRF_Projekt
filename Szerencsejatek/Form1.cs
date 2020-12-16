@@ -37,6 +37,8 @@ namespace Szerencsejatek
             
         }
 
+        
+
         void CreateExcel()
         {
             try
@@ -101,7 +103,7 @@ namespace Szerencsejatek
                 GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
 
 
-
+            //Tábla formázása
             Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, fejlec.Length));
             headerRange.Font.Bold = true;
             headerRange.Interior.Color = Color.AliceBlue;
@@ -134,6 +136,39 @@ namespace Szerencsejatek
             textBox3.Text = rnd.Next(1, 90).ToString();
             textBox4.Text = rnd.Next(1, 90).ToString();
             textBox5.Text = rnd.Next(1, 90).ToString();
+        }
+
+        private void btnCheck_Click(object sender, EventArgs e)
+        {
+
+            int talalatokSzama = 0;
+            for (int i = 0; i < Szelvenyek.Count; i++)
+            {
+                if (Szelvenyek[i].ToString() == textBox1.Text)
+                {
+                    talalatokSzama++;
+                }
+                else if(Szelvenyek[i].ToString() == textBox2.Text)
+                {
+                    talalatokSzama++;
+                }
+                else if (Szelvenyek[i].ToString() == textBox3.Text)
+                {
+                    talalatokSzama++;
+                }
+                else if (Szelvenyek[i].ToString() == textBox4.Text)
+                {
+                    talalatokSzama++;
+                }
+                else if (Szelvenyek[i].ToString() == textBox5.Text)
+                {
+                    talalatokSzama++;
+                }
+                
+                  
+            }
+
+            txtTalalatok.Text = talalatokSzama.ToString();
         }
     }
 }
