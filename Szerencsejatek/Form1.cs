@@ -26,8 +26,6 @@ namespace Szerencsejatek
         Random rnd = new Random();
 
 
-
-
         public Form1()
         {
             InitializeComponent();
@@ -35,13 +33,100 @@ namespace Szerencsejatek
             Szelvenyek = context.Szelvenyek.ToList();
             dataGridView1.DataSource = Szelvenyek;
 
+            CreateExcel();
             
+        }
+
+        void CreateExcel()
+        {
+            try
+            {
+                xlApp = new Excel.Application();
+
+                xlWB = xlApp.Workbooks.Add(Missing.Value);
+
+                xlSheet = xlWB.ActiveSheet;
+
+                CreateTable();
+
+                xlApp.Visible = true;
+                xlApp.UserControl = true;
+            }
+            catch (Exception ex)
+            {
+                string errMsg = string.Format("Error: {0}\nLine: {1}", ex.Message, ex.Source);
+                MessageBox.Show(errMsg, "Error");
+
+                xlWB.Close(false, Type.Missing, Type.Missing);
+                xlApp.Quit();
+                xlWB = null;
+                xlApp = null;
+
+                
+            }
+        }
+        
+        void CreateTable()
+        {
+            string[] fejlec = new string[]
+            {
+                "Szelveny_Id",
+                "t01",
+                "t02",
+                "t03",
+                "t04",
+                "t05"
+            };
+
+            for (int i = 1; i < fejlec.Length; i++)
+            {
+                xlSheet.Cells[i, 1] = fejlec[0];
+            }
+
+            object[,] values = new object[Szelvenyek.Count, fejlec.Length];
+
+            int counter = 0;
+            foreach (var s in Szelvenyek)
+            {
+                values[counter, 0] = s.Szelveny_Id;
+                values[counter, 1] = s.t01;
+                values[counter, 2] = s.t02;
+                values[counter, 3] = s.t03;
+                values[counter, 4] = s.t04;
+                values[counter, 5] = s.t05;
+                counter++;
+            }
+            xlSheet.get_Range(
+                GetCell(2, 1),
+                GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
+
+
+
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, fejlec.Length));
+            headerRange.Font.Bold = true;
+            headerRange.Interior.Color = Color.AliceBlue;
 
         }
 
-       
+        
+        
+        private string GetCell(int x, int y)
+        {
+            string ExcelCoordinate = "";
+            int dividend = y;
+            int modulo;
 
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                ExcelCoordinate = Convert.ToChar(65 + modulo).ToString() + ExcelCoordinate;
+                dividend = (int)((dividend - modulo) / 26);
+            }
+            ExcelCoordinate += x.ToString();
+            return ExcelCoordinate;          
+        }
 
+        
         private void btnStart_Click(object sender, EventArgs e)
         {
             textBox1.Text = rnd.Next(1, 90).ToString();
